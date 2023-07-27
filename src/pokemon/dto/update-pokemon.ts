@@ -10,8 +10,8 @@ export class UpdatePokemonDTO {
   pokedexNumber?: number;
 
   @IsOptional()
-  @IsString()
-  imgName?: string;
+  @IsNumber()
+  imgName?: number;
 
   @IsOptional()
   @IsNumber()

@@ -16,7 +16,9 @@ export let ormOptions: any = {
   entities: [`${__dirname}/**/*.entity{.js,.ts}`],
   subscriber: [`${__dirname}/**/subscriber/*.subscriber{.js,.ts}`],
   options: { trustServerCertificate: true },
-  synchronize: true};
+  logging: configService.get('logging')==="true",
+  synchronize: configService.get('synchronize')  === "true" ,
+};
 
 const source = new DataSource(ormOptions);
 

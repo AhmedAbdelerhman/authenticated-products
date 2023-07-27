@@ -3,7 +3,6 @@ export interface TypeOrmMethodsInterface {
   relations?: {},
   select?: {},
   loadEagerRelations?: boolean,
-  cache?: boolean,
   order?: {}
 }
 

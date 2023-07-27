@@ -19,7 +19,7 @@ export class ApiResponseMsg {
     };
   }
 
-  static successResponse(message: string ="success", data="", status: number = 200) {
+  static successResponse(message: string ="success", data?:any, status: number = 200) {
     return { status, message, data };
   }
 
