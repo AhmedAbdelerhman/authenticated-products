@@ -1,10 +1,9 @@
 // import { Exclude, Expose, Transform } from 'class-transformer';
+import { Transform } from 'class-transformer';
 import {
   Column,
   CreateDateColumn,
-  DeleteDateColumn,
   Entity,
-
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -21,18 +20,21 @@ export class PokemonEntity {
   pokedexNumber: number;
 
   @Column()
-  imgName: string;
+  imgName: number;
 
   @Column()
   generation: number;
-
+  @Transform((entity) => {
+    console.log('@@@@@@@@@@@@@@@{entity}',entity);
+    return entity + '';
+  })
   @Column()
   evolutionStage: string;
 
   @Column()
   evolved: boolean;
 
-  @Column()
+  @Column({ nullable: true })
   familyID: number;
 
   @Column()
@@ -100,4 +102,12 @@ export class PokemonEntity {
 
   @Column()
   cpAt39: number;
+
+  @CreateDateColumn({})
+  created_at: Date;
+
+  @UpdateDateColumn({
+    nullable: true,
+  })
+  updated_at: Date;
 }

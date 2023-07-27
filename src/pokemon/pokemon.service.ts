@@ -7,16 +7,16 @@ import { Repository } from 'typeorm';
 import { ApiResponseMsg } from '@app/libs/errors/api-response-msg';
 import { TypeOrmMethods_Find } from '@app/libs/typeorm/find.orm';
 import { ServiceOptions } from '@app/libs/typeorm/serviceOptions.interfaces';
+import { UpdatePokemonDTO } from './dto/update-pokemon';
 
 @Injectable()
 export class PokemonService {
-
-   options: ServiceOptions = {
+  options: ServiceOptions = {
     repository: this.pokemonRepository,
     table: 'locations',
     filterSetter: [
       { keyName: 'id', type: 'number' },
-      { keyName: 'address', type: 'string', relation: "translations" },
+      { keyName: 'address', type: 'string', relation: 'translations' },
     ],
     limit: 10,
     page: 0,
@@ -29,10 +29,7 @@ export class PokemonService {
   constructor(
     @InjectRepository(PokemonEntity)
     private pokemonRepository: Repository<PokemonEntity>,
-  ) {
-
-   
-  }
+  ) {}
   async create(createPokemonDto: CreatePokemonDTO) {
     const qBuilder = new TypeOrmMethods_Create(this.pokemonRepository);
 
@@ -46,26 +43,37 @@ export class PokemonService {
   }
 
   async findAll() {
-    const qBuilder = new TypeOrmMethods_Find(this.pokemonRepository,this.options);
+    const qBuilder = new TypeOrmMethods_Find(
+      this.pokemonRepository,
+      this.options,
+    );
     // qBuilder.FindAllPagination()
     return this.pokemonRepository.find();
   }
 
   async findOne(id: number) {
-    // return this.pokemonRepository.findOne(id);
+    const qBuilder = new TypeOrmMethods_Find(
+      this.pokemonRepository,
+      this.options,
+    );
+
+    return qBuilder.FindOneBy({
+      where: {
+        id,
+      },
+    });
   }
 
-  // async update(id: number, updatePokemonDto: UpdatePokemonDto) {
-  //   const pokemon = await this.pokemonRepository.findOne(id);
-  //   if (!pokemon) {
-  //     throw new Error('Pokemon not found');
-  //   }
+  async update(id: number, updatePokemonDto: UpdatePokemonDTO) {
+    // const pokemon = await this.pokemonRepository.findOne(id);
+    // if (!pokemon) {
+    //   throw new Error('Pokemon not found');
+    // }
+    // this.pokemonRepository.merge(pokemon, updatePokemonDto);
+    // return this.pokemonRepository.save(pokemon);
+  }
 
-  //   this.pokemonRepository.merge(pokemon, updatePokemonDto);
-  //   return this.pokemonRepository.save(pokemon);
-  // }
-
-  // async remove(id: number) {
-  //   await this.pokemonRepository.delete(id);
-  // }
+  async remove(id: number) {
+    // await this.pokemonRepository.delete(id);
+  }
 }
