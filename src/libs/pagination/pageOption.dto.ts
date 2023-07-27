@@ -1,5 +1,6 @@
 import { Transform, Type } from 'class-transformer';
 import {
+  Allow,
   IsEnum,
   IsInt,
   IsNumber,
@@ -11,7 +12,6 @@ import {
 import { OrderValue } from './orderBy.constant';
 
 export class PageOptionsDto {
-
   @Type(() => Number)
   @IsInt()
   @Min(1)
@@ -25,9 +25,7 @@ export class PageOptionsDto {
   @IsOptional()
   readonly page?: number = 1;
 
-  @IsString()
-  @IsOptional()
-  readonly orderKey?: string;
+
 
   @Transform((orderValue) => orderValue.value.toLowerCase())
   @IsEnum(OrderValue)

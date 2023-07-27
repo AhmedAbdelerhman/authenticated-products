@@ -3,18 +3,14 @@ import { IsNull, Not, Repository } from 'typeorm';
 import { ServiceOptions } from './serviceOptions.interfaces';
 
 export class TypeOrmMethods_Delete {
-  constructor(
-    public readonly entityRepository: Repository<any>,
-    public serviceOptions: ServiceOptions,
-  ) {}
+  constructor(public readonly entityRepository: Repository<any>) {}
 
   // soft delete a record
-  async softDelete(id: any) {
+  async delete(id: any) {
     // check record first
     const record = await this.entityRepository.findOne({
       where: {
         id,
-        deleted_at: IsNull(),
       },
     });
 
@@ -27,6 +23,4 @@ export class TypeOrmMethods_Delete {
       return ApiResponseMsg.notFoundResponse('not found');
     }
   }
-
-
 }

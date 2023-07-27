@@ -1,3 +1,4 @@
+import { Transform } from 'class-transformer';
 import {
   IsBoolean,
   IsNotEmpty,
@@ -17,6 +18,7 @@ export class FilterPokemonDto {
   @IsString()
   type1?: string;
 
+  @Transform((value) => +value.value)
   @IsOptional()
   @IsNumber()
   @Min(1)

@@ -8,18 +8,16 @@ import { ApiResponseMsg } from '@app/libs/errors/api-response-msg';
 import { TypeOrmMethods_Find } from '@app/libs/typeorm/find.orm';
 import { ServiceOptions } from '@app/libs/typeorm/serviceOptions.interfaces';
 import { UpdatePokemonDTO } from './dto/update-pokemon';
+import { PageOptionsDto } from '@app/libs/pagination/pageOption.dto';
+import { FilterPokemonDto } from './dto/filter-pokemon.dto';
+import { TypeOrmMethods_Delete } from '@app/libs/typeorm/delete.orm';
 
 @Injectable()
 export class PokemonService {
-  options: ServiceOptions = {
+  _options: ServiceOptions = {
     repository: this.pokemonRepository,
-    table: 'locations',
-    filterSetter: [
-      { keyName: 'id', type: 'number' },
-      { keyName: 'address', type: 'string', relation: 'translations' },
-    ],
     limit: 10,
-    page: 0,
+    page: 1,
     orderKey: 'id',
     orderValue: 'desc',
     filter: {},
@@ -42,19 +40,25 @@ export class PokemonService {
     return ApiResponseMsg.successResponse('saved successfully', addedRecord);
   }
 
-  async findAll() {
+  async findAll(options: PageOptionsDto, filter: any) {
+    console.log(
+      '@@@@@@@@@@@@@@@{typeof filter.generation}',
+      typeof filter.generation,
+    );
+    Object.assign(this._options, options);
     const qBuilder = new TypeOrmMethods_Find(
       this.pokemonRepository,
-      this.options,
+      this._options,
     );
-    // qBuilder.FindAllPagination()
-    return this.pokemonRepository.find();
+    const records = await qBuilder.FindAllPagination(filter);
+
+    return ApiResponseMsg.successResponseWithPagination('succuss', records);
   }
 
   async findOne(id: number) {
     const qBuilder = new TypeOrmMethods_Find(
       this.pokemonRepository,
-      this.options,
+      this._options,
     );
 
     return qBuilder.FindOneBy({
@@ -62,6 +66,16 @@ export class PokemonService {
         id,
       },
     });
+  }
+
+  async getSingleRecord(id: number) {
+    // check id is exist
+    const pokemon = await this.findOne(id);
+    if (!pokemon) {
+      return ApiResponseMsg.notFoundResponse();
+    }
+    // return success response
+    return ApiResponseMsg.successResponse(pokemon);
   }
 
   async update(id: number, updatePokemonDto: UpdatePokemonDTO) {
@@ -74,6 +88,8 @@ export class PokemonService {
   }
 
   async remove(id: number) {
+    const qBuilder = new TypeOrmMethods_Delete(this.pokemonRepository);
+    return await qBuilder.delete(id);
     // await this.pokemonRepository.delete(id);
   }
 }
