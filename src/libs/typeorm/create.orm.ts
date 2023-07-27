@@ -1,13 +1,11 @@
 import { Repository } from 'typeorm';
 import { ApiResponseMsg } from '../errors/api-response-msg';
 import { HttpStatus } from '@nestjs/common';
-import { ServiceOptions } from './serviceOptions.interfaces';
 
 export class TypeOrmMethods_Create {
   private id;
   constructor(
     public readonly entityRepository: Repository<any>,
-    public serviceOptions: ServiceOptions,
   ) {}
 
   async addNew(data: any, dto: any) {
