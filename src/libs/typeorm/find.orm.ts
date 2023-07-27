@@ -29,6 +29,7 @@ export class TypeOrmMethods_Find {
   // find with pagination
   async FindAllPagination(filters: TypeOrmMethodsInterface) {
     this.setFilter(filters);
+    console.log('@@@@@@@@@@@@@@@{filters}', this.serviceOptions.filter);
     // pagination
     const skip = (this.serviceOptions.page - 1) * this.serviceOptions.limit;
     const take = this.serviceOptions.limit;
@@ -49,6 +50,8 @@ export class TypeOrmMethods_Find {
     if (total) {
       totalPages = Math.ceil(total / this.serviceOptions.limit);
     }
+  // clear filter
+    this.serviceOptions.filter = {};
 
     let response: any = null;
     if (total > 0) {

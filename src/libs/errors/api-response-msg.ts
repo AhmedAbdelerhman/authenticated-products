@@ -2,7 +2,6 @@ import {
   HttpException,
   NotAcceptableException,
   NotFoundException,
-  UnauthorizedException,
 } from '@nestjs/common';
 
 export class ApiResponseMsg {
@@ -19,40 +18,26 @@ export class ApiResponseMsg {
     };
   }
 
-  static successResponse(message: string ="success", data?:any, status: number = 200) {
+  static successResponse(
+    message: string = 'success',
+    data?: any,
+    status: number = 200,
+  ) {
     return { status, message, data };
   }
 
-  static nodDataResponse(message: string) {
-    return { message, data: [] };
-  }
+  
 
-  // static errorResponseStatus(message: string, errors, status?: number) {
-
-  //   throw new HttpException({message, ...errors, noDto: true }, status);
-  // }
-
-  static errorResponse(message: string="failed", status: number) {
+  static errorResponse(message: string = 'failed', status: number) {
     throw new HttpException({ message, noDto: true }, status);
   }
 
-  static unAuthorizedResponse() {
-    throw new UnauthorizedException({ message: 'Unauthorized', noDto: true });
-  }
 
-  static errorCredentialResponse(message: string, errors = {}) {
-    throw new UnauthorizedException({
-      message: message,
-      ...errors,
-      noDto: true,
-    });
-  }
-
-  static notFoundResponse(message = 'Not found', errors?) {
+  static notFoundResponse(message = 'Not found', errors?, status = 404) {
     throw new NotFoundException({
       message: message,
       ...errors,
-      noDto: true,
+      status
     });
   }
 

@@ -43,7 +43,7 @@ export class PokemonController {
     return this.pokemonService.getSingleRecord(id);
   }
 
-  @Put(':id')
+  @Patch(':id')
   update(@Param('id') id: number, @Body() updatePokemonDto: UpdatePokemonDTO) {
     return this.pokemonService.update(id, updatePokemonDto);
   }

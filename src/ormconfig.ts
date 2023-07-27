@@ -8,7 +8,6 @@ const configService = new ConfigService();
 
 export let ormOptions: any = {
   type: 'mssql',
-  database: configService.get('DB_NAME'),
   username: configService.get('DB_USERNAME'),
   password: configService.get('DB_PASSWORD'),
   host: configService.get('DB_HOST'),
@@ -16,10 +15,9 @@ export let ormOptions: any = {
   entities: [`${__dirname}/**/*.entity{.js,.ts}`],
   subscriber: [`${__dirname}/**/subscriber/*.subscriber{.js,.ts}`],
   options: { trustServerCertificate: true },
-  logging: configService.get('logging')==="true",
-  synchronize: configService.get('synchronize')  === "true" ,
+  logging: configService.get('logging') === 'true',
+  synchronize: configService.get('synchronize') === 'true',
 };
-
 const source = new DataSource(ormOptions);
 
 export default source;

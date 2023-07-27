@@ -17,10 +17,12 @@ export class TypeOrmMethods_Delete {
     if (record) {
       await this.entityRepository.delete(id);
       // return success message
-      return ApiResponseMsg.successResponse('deleted successfully');
+      return ApiResponseMsg.successResponse(`element with id = ${id}  deleted successfully`);
     } else {
       // return not found message
-      return ApiResponseMsg.notFoundResponse('not found');
+      return ApiResponseMsg.notFoundResponse(
+        `element with id = ${id} not found`,
+      );
     }
   }
 }
