@@ -7,17 +7,3 @@ export interface TypeOrmMethodsInterface {
   order?: {}
 }
 
-export interface TypeOrmOptionsMethodsInterface {
-  withDeleted?: boolean,
-}
-
-export interface TypeOrmMethodsInterfaceOptions {
-  cache?: {
-    name: string,
-    ttl?: number
-  },
-}
-
-export interface TypeOrmMethodsPaginationInterface {
-
-}

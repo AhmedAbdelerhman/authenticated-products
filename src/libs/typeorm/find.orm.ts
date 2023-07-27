@@ -1,57 +1,35 @@
-import {     Repository } from 'typeorm';
-
-import { ConfigService } from '@nestjs/config';
-import { config } from 'dotenv';
-import {
-  TypeOrmMethodsInterface,
-  TypeOrmMethodsInterfaceOptions,
-  TypeOrmOptionsMethodsInterface,
-} from './find.interface';
+import { Repository } from 'typeorm';
+import { TypeOrmMethodsInterface } from './find.interface';
 import { ServiceOptions } from './serviceOptions.interfaces';
 
-config();
-const configService = new ConfigService();
 
 export class TypeOrmMethods_Find {
   constructor(
     public readonly entityRepository: Repository<any>,
-    public readonly options: TypeOrmMethodsInterfaceOptions,
     public serviceOptions: ServiceOptions,
   ) {}
 
- 
   // find a single record by specific key
-  async FindOneBy(
-    query: TypeOrmMethodsInterface,
-    options: TypeOrmOptionsMethodsInterface = {},
-  ) {
+  async FindOneBy(query: TypeOrmMethodsInterface) {
     const data = await this.entityRepository.findOne({
       ...query,
       loadEagerRelations: false,
-
-      ...options,
     });
 
     return data;
   }
 
   // find with pagination
-  async FindAllPagination(
-    query: TypeOrmMethodsInterface,
-    options: TypeOrmOptionsMethodsInterface = {},
-  ) {
+  async FindAllPagination(query: TypeOrmMethodsInterface) {
     // pagination
     const skip = (this.serviceOptions.page - 1) * this.serviceOptions.limit;
     const take = this.serviceOptions.limit;
-
-
 
     // do find
     let [results, total] = await this.entityRepository.findAndCount({
       ...query,
       loadEagerRelations: false,
 
-      ...options,
       skip: skip,
       take: take,
       order: {
@@ -90,6 +68,4 @@ export class TypeOrmMethods_Find {
 
     return response;
   }
-
-
 }
