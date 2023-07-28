@@ -2,12 +2,6 @@
 
 This project is a CRUD (Create, Read, Update, Delete) application built using Nest.js and TypeORM. It provides API endpoints to manage Pokemon data.
 
-    
-|List item|  |
-|---------|--|
-|         |  |
-
-
 
 ## Requirements
   -  Docker ( Docker Compose)
