@@ -22,9 +22,13 @@ export class SeedService {
       console.log("start seeding");
       await this.connection.transaction(async (manager) => {
         for (const row of data) {
-          const pokemon = new PokemonEntity();
+          const pokemon = new PokemonEntity() as any
           Object.assign(pokemon, row);
-
+          // there are table in excel sheet store as 1, 0 we convert it to boolean before store it 
+          pokemon.legendary =  pokemon.legendary  == 1 && true 
+          pokemon.regional =  pokemon.regional  == 1 && true 
+          pokemon.shiny =  pokemon.shiny  == 1 && true 
+          pokemon.new =  pokemon.new  == 1 && true 
           pokemon.evolutionStage = pokemon.evolutionStage +""
           await manager.save(pokemon);
         }

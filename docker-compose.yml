@@ -13,9 +13,8 @@ services:
       - .env
     depends_on:
       - mssql-db
-    networks:
-      - my_network
 
+    
   mssql-db:
     image: mcr.microsoft.com/mssql/server
     container_name: mssql-db
@@ -27,11 +26,8 @@ services:
       - "1433:1433"
     volumes:
       - mssql-data:/var/opt/mssql
-    networks:
-      - my_network
+
 
 volumes:
   mssql-data:
 
-networks:
-  my_network: {}

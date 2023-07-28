@@ -34,7 +34,7 @@ export class PokemonController {
     @Query() filterPokemonDto?: FilterPokemonDto,
   ) {
     console.log('@@@@@@@@@@@@@@@{pageOptionsDto}', pageOptionsDto);
-    console.log('@@@@@@@@@@@@@@@{filterPokemonDto}', filterPokemonDto);
+    console.log('@@@@@@@@@@@@@@@{ATK}', filterPokemonDto.ATK);
     return this.pokemonService.findAll(pageOptionsDto, filterPokemonDto);
   }
 

@@ -12,6 +12,13 @@ RUN npm install i
 # Copy the rest of the application files to the container
 COPY . .
 
+RUN npm install i
+
+RUN npm run build
+# run migration
+RUN npm run typeorm:generate-migration
+RUN npm run typeorm:run-migrations
+
 
 # Expose the port your Nest.js application is listening on
 EXPOSE 8080
