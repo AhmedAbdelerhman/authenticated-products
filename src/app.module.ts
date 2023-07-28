@@ -5,7 +5,7 @@ import source, { ormOptions } from '@app/ormconfig';
 import { PokemonModule } from './pokemon/pokemon.module';
 import { PokemonEntity } from './pokemon/entities/pokemon.entity';
 import { Connection } from 'typeorm';
-import { ConfigService } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 delete ormOptions.database;
 console.log(ormOptions);
@@ -16,7 +16,6 @@ console.log(ormOptions);
     }),
 
     TypeOrmModule.forFeature([PokemonEntity]),
-
     PokemonModule,
   ],
   providers: [SeedService],
@@ -25,9 +24,9 @@ export class AppModule {
   constructor(
     private connection: Connection,
     private seedService: SeedService,
-  ) {
+    ) {
+      // Call the seed function after the database connection is established
     this.seedData();
-    // Call the seed function after the database connection is established
   }
 
   async seedData() {

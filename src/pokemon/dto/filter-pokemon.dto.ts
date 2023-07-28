@@ -19,7 +19,7 @@ export class FilterPokemonDto {
   type1?: string;
 
   @Transform((value) => {
-    return value.value == 'true' || value.value == true;
+    return +value.value;
   })
   @IsOptional()
   @IsNumber()

@@ -13,8 +13,8 @@ async function bootstrap() {
   );
   await app.listen(process.env.PORT || 3000,async ()=>{
 
+    console.log(`Application has been started at ${await app.getUrl()}`);
   });
-  console.log(`Application has been started at ${await app.getUrl()}`);
   
 }
 bootstrap();
