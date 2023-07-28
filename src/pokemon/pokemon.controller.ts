@@ -12,12 +12,12 @@ import {
   Query,
   Req,
   UsePipes,
-  ValidationPipe
+  ValidationPipe,
 } from '@nestjs/common';
 import { PokemonService } from './pokemon.service';
 import { UpdatePokemonDTO } from './dto/update-pokemon';
 import { PageOptionsDto } from '@app/libs/pagination/pageOption.dto';
-
+import { FilterPokemonDto } from './dto/filter-pokemon.dto';
 @Controller('pokemon')
 export class PokemonController {
   constructor(private readonly pokemonService: PokemonService) {}
@@ -28,22 +28,22 @@ export class PokemonController {
     return this.pokemonService.create(createPokemonDto);
   }
 
-  // findAll(
-  //   @Query() pageOptionsDto: PageOptionsDto,
-  //   @Query() filterLocationDto?: FilterLocationDto,
-  // ) {
-  //   return this.pokemonService.findAll(
-  //     pageOptionsDto,
-  //     filterLocationDto ? { ...filterLocationDto } : {},
-  //   );
-  // }
+  @Get()
+  findAll(
+    @Query() pageOptionsDto: PageOptionsDto,
+    @Query() filterPokemonDto?: FilterPokemonDto,
+  ) {
+    console.log('@@@@@@@@@@@@@@@{pageOptionsDto}', pageOptionsDto);
+    console.log('@@@@@@@@@@@@@@@{filterPokemonDto}', filterPokemonDto);
+    return this.pokemonService.findAll(pageOptionsDto, filterPokemonDto);
+  }
 
   @Get(':id')
   findOne(@Param('id') id: number) {
-    return this.pokemonService.findOne(id);
+    return this.pokemonService.getSingleRecord(id);
   }
 
-  @Put(':id')
+  @Patch(':id')
   update(@Param('id') id: number, @Body() updatePokemonDto: UpdatePokemonDTO) {
     return this.pokemonService.update(id, updatePokemonDto);
   }

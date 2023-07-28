@@ -1,7 +1,6 @@
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { TypeOrmMethodsInterface } from './find.interface';
 import { ServiceOptions } from './serviceOptions.interfaces';
-
 
 export class TypeOrmMethods_Find {
   constructor(
@@ -18,16 +17,25 @@ export class TypeOrmMethods_Find {
 
     return data;
   }
-
+  setFilter(filters) {
+    Object.keys(filters).forEach((filter) => {
+      if (typeof filters[filter] == 'string') {
+        this.serviceOptions.filter[filter] = Like(`%${filters[filter]}%`);
+      } else {
+        this.serviceOptions.filter[filter] = filters[filter];
+      }
+    });
+  }
   // find with pagination
-  async FindAllPagination(query: TypeOrmMethodsInterface) {
+  async FindAllPagination(filters: TypeOrmMethodsInterface) {
+    this.setFilter(filters);
+    console.log('@@@@@@@@@@@@@@@{filters}', this.serviceOptions.filter);
     // pagination
     const skip = (this.serviceOptions.page - 1) * this.serviceOptions.limit;
     const take = this.serviceOptions.limit;
-
     // do find
     let [results, total] = await this.entityRepository.findAndCount({
-      ...query,
+      where: { ...this.serviceOptions.filter },
       loadEagerRelations: false,
 
       skip: skip,
@@ -42,6 +50,8 @@ export class TypeOrmMethods_Find {
     if (total) {
       totalPages = Math.ceil(total / this.serviceOptions.limit);
     }
+  // clear filter
+    this.serviceOptions.filter = {};
 
     let response: any = null;
     if (total > 0) {

@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  nest-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nest-app
+    restart: always
+    ports:
+      - "8080:8080"
+    env_file:   
+      - .env
+    depends_on:
+      - mssql-db
+    networks:
+      - my_network
+
+  mssql-db:
+    image: mcr.microsoft.com/mssql/server
+    container_name: mssql-db
+    restart: always
+    environment:
+      SA_PASSWORD: Ahmed1234!
+      ACCEPT_EULA: Y
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql-data:/var/opt/mssql
+    networks:
+      - my_network
+
+volumes:
+  mssql-data:
+
+networks:
+  my_network: {}
