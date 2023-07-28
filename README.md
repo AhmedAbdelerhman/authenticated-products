@@ -9,7 +9,8 @@ This project is a CRUD (Create, Read, Update, Delete) application built using Ne
 
 ## Setup
   1. Clone the repository:
-  git clone https://github.com/AhmedAbdelerhman/pokemon-kib
+
+   git clone https://github.com/AhmedAbdelerhman/pokemon-kib
 
 ## Running the Application
 1. open termenal in code dirctory 
