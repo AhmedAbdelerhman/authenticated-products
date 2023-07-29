@@ -1,0 +1,34 @@
+export declare class PokemonEntity {
+    id: number;
+    name: string;
+    pokedexNumber: number;
+    imgName: number;
+    generation: number;
+    evolutionStage: string;
+    evolved: boolean;
+    familyID: number;
+    crossGen: boolean;
+    type1: string;
+    type2: string;
+    weather1: string;
+    weather2: string;
+    statTotal: number;
+    ATK: number;
+    DEF: number;
+    STA: number;
+    legendary: boolean;
+    acquirable: boolean;
+    spawns: boolean;
+    regional: boolean;
+    raidable: boolean;
+    hatchable: boolean;
+    shiny: boolean;
+    nest: boolean;
+    new: boolean;
+    notGettable: boolean;
+    futureEvolve: boolean;
+    cpAt40: number;
+    cpAt39: number;
+    created_at: Date;
+    updated_at: Date;
+}

@@ -1,15 +1,14 @@
-import { IsBoolean, IsNumber, IsString, IsOptional , } from 'class-validator';
+import { IsBoolean, IsNumber, IsString, IsOptional } from 'class-validator';
 
 export class CreatePokemonDTO {
-
   @IsString()
   name: string;
 
   @IsNumber()
   pokedexNumber: number;
 
-  @IsString()
-  imgName: string;
+  @IsNumber()
+  imgName: number;
 
   @IsNumber()
   generation: number;

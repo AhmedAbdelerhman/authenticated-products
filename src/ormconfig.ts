@@ -1,7 +1,6 @@
 import { DataSource } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 import { config } from 'dotenv';
-import { PokemonEntity } from './pokemon/entities/pokemon.entity';
 
 config();
 const configService = new ConfigService();
@@ -16,8 +15,9 @@ export let ormOptions: any = {
   entities: [`${__dirname}/**/*.entity{.js,.ts}`],
   subscriber: [`${__dirname}/**/subscriber/*.subscriber{.js,.ts}`],
   options: { trustServerCertificate: true },
-  synchronize: true};
-
+  logging: configService.get('logging') === 'true',
+  // migrations: [`${__dirname}/database/migrations/*{.js,.ts}`],
+  synchronize: configService.get('synchronize') === 'true',
+};
 const source = new DataSource(ormOptions);
-
 export default source;

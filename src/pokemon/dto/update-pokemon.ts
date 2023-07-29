@@ -1,4 +1,5 @@
-import { IsBoolean, IsNumber, IsString, IsOptional } from 'class-validator';
+import { IsBoolean, IsNumber, IsString, IsOptional, Allow } from 'class-validator';
+
 
 export class UpdatePokemonDTO {
   @IsOptional()
@@ -10,8 +11,8 @@ export class UpdatePokemonDTO {
   pokedexNumber?: number;
 
   @IsOptional()
-  @IsString()
-  imgName?: string;
+  @IsNumber()
+  imgName?: number;
 
   @IsOptional()
   @IsNumber()
