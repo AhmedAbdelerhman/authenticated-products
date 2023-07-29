@@ -25,10 +25,10 @@ export class SeedService {
           const pokemon = new PokemonEntity() as any
           Object.assign(pokemon, row);
           // there are table in excel sheet store as 1, 0 we convert it to boolean before store it 
-          pokemon.legendary =  pokemon.legendary  == 1 && true 
-          pokemon.regional =  pokemon.regional  == 1 && true 
-          pokemon.shiny =  pokemon.shiny  == 1 && true 
-          pokemon.new =  pokemon.new  == 1 && true 
+          pokemon.legendary =  pokemon.legendary  == 1 ? true : false 
+          pokemon.regional =  pokemon.regional  == 1 ? true : false 
+          pokemon.shiny =  pokemon.shiny  == 1 ? true : false 
+          pokemon.new =  pokemon.new  == 1 ? true : false 
           pokemon.evolutionStage = pokemon.evolutionStage +""
           await manager.save(pokemon);
         }
