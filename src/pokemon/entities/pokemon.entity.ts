@@ -25,7 +25,6 @@ export class PokemonEntity {
   @Column()
   generation: number;
   @Transform((entity) => {
-    console.log('@@@@@@@@@@@@@@@{entity}',entity);
     return entity + '';
   })
   @Column()

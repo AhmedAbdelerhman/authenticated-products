@@ -40,12 +40,8 @@ export class PokemonService {
     // return success response
     return ApiResponseMsg.successResponse('saved successfully', addedRecord);
   }
-
   async findAll(options: PageOptionsDto, filter: any) {
-    console.log(
-      '@@@@@@@@@@@@@@@{ filter.generation}',
-      typeof filter.generation,
-    );
+ 
     Object.assign(this._options, options);
     const qBuilder = new TypeOrmMethods_Find(
       this.pokemonRepository,
@@ -61,7 +57,6 @@ export class PokemonService {
       this.pokemonRepository,
       this._options,
     );
-
     return qBuilder.FindOneBy({
       where: {
         id,
