@@ -5,8 +5,13 @@ This project is a CRUD (Create, Read, Update, Delete) application built using Ne
 
 ## Requirements
   -  Docker ( Docker Compose)
-  -  Postman (postMan collection in project)
+  -  Postman (postMan collection in the project)
 
+## Architecture
+  1.nest.js app container (APIs)
+  2. mssql db container
+  3. init db container (the container that creates the pokemon db after the 20s of mssql db container)
+  
 ## Setup
   1. Clone the repository:
 
@@ -16,7 +21,7 @@ This project is a CRUD (Create, Read, Update, Delete) application built using Ne
 1. open termenal in code dirctory 
 2. docker copmose up --build
    - the app will be accessible from url http://localhost:8080
-3. wait 20 secound to init the database pokemone
+3. wait 20 seconds to init the database pokemon
 ## Example Request and Response
  
  
