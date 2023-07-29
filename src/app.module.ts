@@ -6,7 +6,6 @@ import { PokemonModule } from './pokemon/pokemon.module';
 import { PokemonEntity } from './pokemon/entities/pokemon.entity';
 import { Connection } from 'typeorm';
 
-console.log(ormOptions);
 @Module({
   imports: [
     TypeOrmModule.forRoot({
