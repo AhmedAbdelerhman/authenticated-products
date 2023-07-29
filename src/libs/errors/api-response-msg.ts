@@ -41,11 +41,5 @@ export class ApiResponseMsg {
     });
   }
 
-  static notAcceptable(message = 'Not Acceptable', errors?) {
-    throw new NotAcceptableException({
-      message: message,
-      ...errors,
-      noDto: true,
-    });
-  }
+
 }

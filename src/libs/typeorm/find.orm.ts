@@ -17,6 +17,8 @@ export class TypeOrmMethods_Find {
 
     return data;
   }
+
+  // make filter dynamic 
   setFilter(filters) {
     Object.keys(filters).forEach((filter) => {
       if (typeof filters[filter] == 'string') {
@@ -29,7 +31,6 @@ export class TypeOrmMethods_Find {
   // find with pagination
   async FindAllPagination(filters: TypeOrmMethodsInterface) {
     this.setFilter(filters);
-    console.log('@@@@@@@@@@@@@@@{filters}', this.serviceOptions.filter);
     // pagination
     const skip = (this.serviceOptions.page - 1) * this.serviceOptions.limit;
     const take = this.serviceOptions.limit;
