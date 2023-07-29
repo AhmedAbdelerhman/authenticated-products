@@ -5,12 +5,12 @@ This project is a CRUD (Create, Read, Update, Delete) application built using Ne
 
 ## Requirements
   -  Docker ( Docker Compose)
-  -  Postman (postMan collection in the project)
+  -  Postman ( postman collection in the project )
 
 ## Architecture
-  1.nest.js app container (APIs)
-  2. mssql db container
-  3. init db container (the container that creates the pokemon db after the 20s of mssql db container)
+1.nest.js app container (APIs)
+2. mssql db container
+3. init db container (the container that creates the pokemon db after the 20s of mssql db container)
   
 ## Setup
   1. Clone the repository:
