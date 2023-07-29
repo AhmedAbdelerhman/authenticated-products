@@ -5,7 +5,7 @@ This project is a CRUD (Create, Read, Update, Delete) application built using Ne
 
 ## Requirements
   -  Docker ( Docker Compose)
-  -  Postman
+  -  Postman (postMan collection in project)
 
 ## Setup
   1. Clone the repository:
