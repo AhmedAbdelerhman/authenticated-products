@@ -14,10 +14,9 @@ This project is a CRUD (Create, Read, Update, Delete) application built using Ne
 
 ## Running the Application
 1. open termenal in code dirctory 
-2. npm run build //because in dockerfile only installs production dependencies
-3. docker copmose up 
-  the app will be accessible from url http://localhost:8080
-4. wait 20 secound to init the database pokemone
+2. docker copmose up --build
+   - the app will be accessible from url http://localhost:8080
+3. wait 20 secound to init the database pokemone
 ## Example Request and Response
  
  
