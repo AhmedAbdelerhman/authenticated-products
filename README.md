@@ -14,8 +14,8 @@ This project is a CRUD (Create, Read, Update, Delete) application built using Ne
 
 ## Running the Application
 1. open termenal in code dirctory 
-2- npm run build //because in dockerfile only installs production dependencies
-2. docker copmose up 
+2. npm run build //because in dockerfile only installs production dependencies
+3. docker copmose up 
   the app will be accessible from url http://localhost:8080
 
 ## Example Request and Response
