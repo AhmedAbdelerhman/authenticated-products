@@ -96,6 +96,5 @@ export class PokemonService {
   async remove(id: number) {
     const qBuilder = new TypeOrmMethods_Delete(this.pokemonRepository);
     return await qBuilder.delete(id);
-    // await this.pokemonRepository.delete(id);
   }
 }

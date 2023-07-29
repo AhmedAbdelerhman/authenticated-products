@@ -16,6 +16,3 @@ EXPOSE 1433
 
 # Set the entrypoint to run the SQL script on container startup
 ENTRYPOINT ["bash", "-c", "sleep 20s && /opt/mssql-tools/bin/sqlcmd -S mssql-db -U sa -P $SA_PASSWORD -d master -i init.sql"]
-
-# Optionally, you can use CMD to pass additional arguments to the sqlcmd command, if needed
-# CMD ["-r", "1"]
