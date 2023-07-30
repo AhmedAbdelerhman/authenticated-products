@@ -98,7 +98,7 @@ This project is a CRUD (Create, Read, Update, Delete) application built using Ne
 
 {
 
-"status":  200,
+"status":  201,
 
 "message":  "saved successfully",
 
