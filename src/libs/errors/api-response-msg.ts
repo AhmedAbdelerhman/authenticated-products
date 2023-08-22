@@ -26,10 +26,10 @@ export class ApiResponseMsg {
     return { status, message, data };
   }
 
-  
+
 
   static errorResponse(message: string = 'failed', status: number) {
-    throw new HttpException({ message, noDto: true }, status);
+    throw new HttpException(message, status);
   }
 
 

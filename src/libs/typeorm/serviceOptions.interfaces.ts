@@ -3,10 +3,7 @@ export interface ServiceOptions {
 
   limit: number;
   page: number;
-  orderKey: string;
-  orderValue: string;
-  filter: {};
-  withDeleted: boolean;
+
 }
 
 export interface ServiceOptionFilterSetter {

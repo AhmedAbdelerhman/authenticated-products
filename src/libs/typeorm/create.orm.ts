@@ -9,14 +9,14 @@ export class TypeOrmMethods_Create {
   ) {}
 
   async addNew(data: any, dto: any) {
-    // create and save new record
+    try {
+          // create and save new record
     const newItem = new dto();
     Object.assign(newItem, data);
     // create instance from the inserted entity
     const itemObject = this.entityRepository.create(newItem);
     // save the instance of the entity
     const addedItem = await this.entityRepository.save(itemObject);
-
     // failed to create
     if (!addedItem) {
       return ApiResponseMsg.errorResponse(
@@ -28,6 +28,11 @@ export class TypeOrmMethods_Create {
 
 
     return addedItem;
+      
+    } catch (error) {
+      console.log('@@@@@@@@@@@@@@@{error}',error);
+    }
+
   }
 
 

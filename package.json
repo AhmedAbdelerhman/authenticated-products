@@ -1,5 +1,5 @@
 {
-  "name": "pokemon",
+  "name": "authintated-products",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -23,7 +23,6 @@
     "typeorm:run-migrations": "npm run typeorm migration:run -- -d ./src/ormconfig.ts",
     "typeorm:generate-migration": "npm run typeorm -- -d ./src/ormconfig.ts migration:generate ./src/database/migrations/InitalizationDataBase",
     "db:refresh": "npm run typeorm:drop && npm run typeorm:generate-migration && npm run typeorm:run-migrations"
-
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
@@ -33,9 +32,11 @@
     "@nestjs/typeorm": "^10.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
+    "jsonwebtoken": "^9.0.1",
     "mssql": "^9.1.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
+    "sqlite3": "^5.1.6",
     "typeorm": "^0.3.17",
     "xlsx": "^0.18.5"
   },
