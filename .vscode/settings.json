@@ -2,5 +2,10 @@
     "cSpell.words": [
         "abdelrahman",
         "Naser"
-    ]
+    ],
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#22320F",
+        "titleBar.activeBackground": "#304615",
+        "titleBar.activeForeground": "#F8FCF3"
+    }
 }
