@@ -4,7 +4,7 @@ import * as jwt from 'jsonwebtoken';
 import { CreateUserDto } from './dto/create-user';
 import { TypeOrmMethods_Create } from '@app/libs/typeorm/create.orm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserEintity } from './entities/user.entity';
+import { UserEntity } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { JsonService } from '@app/redFromJSon.service';
 import { ApiResponseMsg } from '@app/libs/errors/api-response-msg';
@@ -21,8 +21,8 @@ interface JwtPayload {
 export class AuthService {
 
     constructor(
-        @InjectRepository(UserEintity)
-        private userRepository: Repository<UserEintity>
+        @InjectRepository(UserEntity)
+        private userRepository: Repository<UserEntity>
 
     ) { }
 

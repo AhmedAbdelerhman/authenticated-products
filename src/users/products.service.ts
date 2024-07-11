@@ -7,7 +7,7 @@ import { ApiResponseMsg } from '@app/libs/errors/api-response-msg';
 import { TypeOrmMethods_Find } from '@app/libs/typeorm/find.orm';
 import { ServiceOptions } from '@app/libs/typeorm/serviceOptions.interfaces';
 import { PageOptionsDto } from '@app/libs/pagination/pageOption.dto';
-import { UserEintity } from './entities/user.entity';
+import { UserEntity } from './entities/user.entity';
 
 
 
@@ -20,8 +20,8 @@ export class ProductsService {
   };
 
   constructor(
-    @InjectRepository(UserEintity)
-    private userRepository: Repository<UserEintity>,
+    @InjectRepository(UserEntity)
+    private userRepository: Repository<UserEntity>,
     private jsonService: JsonService
 
   ) { }

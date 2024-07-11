@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
-import { UserEintity } from '../entities/user.entity';
+import { UserEntity } from '../entities/user.entity';
 @EventSubscriber()
 export class UserSubscriber
     implements EntitySubscriberInterface, OnModuleInit {
@@ -21,9 +21,9 @@ export class UserSubscriber
     // inject service outsite dependency injection
     async onModuleInit() { }
     listenTo() {
-        return UserEintity;
+        return UserEntity;
     }
-    async beforeInsert(event: InsertEvent<UserEintity>): Promise<any> {
+    async beforeInsert(event: InsertEvent<UserEntity>): Promise<any> {
         const user = event.entity;
         const saltRounds = 10; // Adjust the number of salt rounds as needed for your security requirements
 
@@ -32,7 +32,7 @@ export class UserSubscriber
             user.password = hashedPassword;
         }
     }
-    afterInsert(event: InsertEvent<UserEintity>) {
+    afterInsert(event: InsertEvent<UserEntity>) {
         Logger.getTimestamp();
         // Your logic here
         Logger.log(`new user inserted: with id  ${event.entity.id} and email ${event.entity.email} `,);
