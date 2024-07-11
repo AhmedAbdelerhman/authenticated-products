@@ -15,11 +15,19 @@ import { AdminModule } from './admin/admin.module';
 @Global()
 @Module({
   imports: [
-    ServeStaticModule.forRoot(      {
-      rootPath: join(__dirname, '..', 'public'),
-      serveRoot: '/admin',
-      renderPath: '/index.html',
-    },),
+    ServeStaticModule.forRoot(
+      {
+        rootPath: join(__dirname, '..', 'public'),
+        serveRoot: '/admin',
+        serveStaticOptions: {
+          index: "welcome-admin.html"
+        }
+      },
+      {
+        rootPath: join(__dirname, '..', 'public'),
+        serveRoot: '/*',
+
+      },),
     TypeOrmModule.forRoot({
       ...ormOptions,
     }),

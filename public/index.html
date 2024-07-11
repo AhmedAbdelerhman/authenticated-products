@@ -4,110 +4,96 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Panel</title>
-  <!-- Include Vue.js and Axios from CDN -->
+  <title>Welcome to JWT Free Service</title>
+  <!-- Include Vue.js from CDN -->
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <!-- Optional: Include Bootstrap CSS for styling -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Optional: Include Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <!-- Inline styles for basic styling -->
   <style>
     body {
       font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
       padding: 20px;
+      color: #333;
     }
 
-    .form-container {
-      max-width: 400px;
+    .container {
+      max-width: 800px;
       margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
-    .mt-20 {
+    h1 {
+      color: #007bff;
+      text-align: center;
+    }
+
+    .bullet-list {
       margin-top: 20px;
+      padding-left: 20px;
+    }
+
+    .bullet-list li {
+      line-height: 1.6;
+    }
+
+    .links {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .links a {
+      color: #007bff;
+      text-decoration: none;
+      margin: 0 10px;
+      display: block;
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #007bff;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .links a:hover {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .icon {
+      margin-right: 5px;
     }
   </style>
 </head>
 
 <body>
-  <div id="app">
-    <!-- Vue app container -->
-    <div v-if="!token">
-      <!-- Login Form -->
-      <div class="form-container">
-        <h2>Login</h2>
-        <form @submit.prevent="login">
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" v-model="credentials.username" required>
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" v-model="credentials.password" required>
-          </div>
-          <button type="submit" class="btn btn-primary">Login</button>
-        </form>
-      </div>
+  <div id="app" class="container">
+    <h1>Welcome to JWT Free Service</h1>
+    <div class="bullet-list">
+      <ul>
+        <li><strong>Easy Authentication Integration:</strong> Apply JWT authentication effortlessly in your frontend and mobile apps projects.</li>
+        <li><strong>Secure Token Management:</strong> Set JWT expiration times during login and signup to secure your applications.</li>
+        <li><strong>Dummy Data Fetching:</strong> Access authenticated dummy data using JWT tokens to simulate real-world scenarios.</li>
+      </ul>
     </div>
-    <div v-else>
-      <!-- Admin Panel -->
-      <div>
-        <h2>Welcome, Admin!</h2>
-        <div class="mt-20">
-          <h3>System Statistics</h3>
-          <!-- Display system statistics here -->
-          <p>Total Users: {{ totalUsers }}</p>
-        </div>
-        <div class="mt-20">
-          <h3>User Table</h3>
-          <!-- Display paginated user table -->
-          <table class="table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Email</th>
-                <th>Username</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Address</th>
-                <th>City</th>
-                <th>Country</th>
-                <th>Postal Code</th>
-                <th>Created At</th>
-                <th>Updated At</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="user in users" :key="user.id">
-                <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.username }}</td>
-                <td>{{ user.firstName }}</td>
-                <td>{{ user.lastName }}</td>
-                <td>{{ user.address }}</td>
-                <td>{{ user.city }}</td>
-                <td>{{ user.country }}</td>
-                <td>{{ user.postalCode }}</td>
-                <td>{{ new Date(user.createdAt).toLocaleString() }}</td>
-                <td>{{ new Date(user.updatedAt).toLocaleString() }}</td>
-              </tr>
-            </tbody>
-          </table>
-          <!-- Pagination Controls -->
-          <nav>
-            <ul class="pagination">
-              <li class="page-item" :class="{ disabled: currentPage === 1 }">
-                <a class="page-link" href="#" @click.prevent="changePage(currentPage - 1)">Previous</a>
-              </li>
-              <li class="page-item" v-for="page in totalPages" :key="page" :class="{ active: currentPage === page }">
-                <a class="page-link" href="#" @click.prevent="changePage(page)">{{ page }}</a>
-              </li>
-              <li class="page-item" :class="{ disabled: currentPage === totalPages }">
-                <a class="page-link" href="#" @click.prevent="changePage(currentPage + 1)">Next</a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
+    <p>Explore our resources and get started with integrating JWT authentication:</p>
+    <div class="links">
+      <a href="https://swagger.io" target="_blank">
+        <i class="fas fa-book icon"></i>Swagger for Documentation
+      </a>
+      <a href="https://github.com/your-repo" target="_blank">
+        <i class="fab fa-github icon"></i>Give the Project a Star on GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/your-profile" target="_blank">
+        <i class="fab fa-linkedin icon"></i>Follow for Future Versions on LinkedIn
+      </a>
+      <a href="https://hub.docker.com/r/your-docker-image" target="_blank">
+        <i class="fab fa-docker icon"></i>you can use Docker Image in your local machine
+      </a>
     </div>
   </div>
 
@@ -116,85 +102,13 @@
     new Vue({
       el: '#app',
       data() {
-        return {
-          credentials: {
-            username: '',
-            password: ''
-          },
-          token: '',
-          users: [],
-          totalUsers: 0,
-          currentPage: 1,
-          limit: 10,
-          totalPages: 0
-        };
+        return {};
       },
       mounted() {
-        // Check if token exists in local storage
-        const token = localStorage.getItem('token');
-        if (token) {
-          this.token = token;
-          // Load system statistics and user data
-          this.loadUsers();
-        }
+        // Additional initialization if needed
       },
       methods: {
-        async login() {
-          try {
-            const response = await axios.post('http://localhost:8000/v1/admin/auth/login', {
-              username: this.credentials.username,
-              password: this.credentials.password,
-              tokenSecondsDuration: 80000
-            }, {
-              headers: {
-                'Content-Type': 'application/json',
-                'Accept': '*/*',
-                'Cache-Control': 'no-cache',
-              }
-            });
-
-            const { token } = response.data.data; // Assuming the token is returned from backend
-            this.token = token;
-            localStorage.setItem('token', token);
-
-            // Load system statistics and user data after successful login
-            this.loadUsers();
-          } catch (error) {
-            if (error.response && error.response.status === 400) {
-              alert('Invalid username or password');
-              console.error('Error during login:', error.response.data);
-            } else {
-              alert('An error occurred during login');
-              console.error('Error during login:', error);
-            }
-          }
-        },
-        async loadUsers() {
-          try {
-            // Replace with actual backend API endpoint to fetch users
-            const response = await axios.get('http://localhost:8000/v1/admin/statics', {
-              headers: {
-                Authorization: `Bearer ${this.token}`
-              },
-              params: {
-                limit: this.limit,
-                page: this.currentPage
-              }
-            });
-
-            this.totalUsers = response.data.meta.total;
-            this.users = response.data.data; // Example: Assuming response.data contains users array
-            this.totalPages = Math.ceil(this.totalUsers / this.limit);
-          } catch (error) {
-            console.error('Error loading users:', error);
-          }
-        },
-        changePage(page) {
-          if (page >= 1 && page <= this.totalPages) {
-            this.currentPage = page;
-            this.loadUsers();
-          }
-        }
+        // Define any methods if needed
       }
     });
   </script>
