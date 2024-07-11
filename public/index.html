@@ -1,63 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Websockets Client</title>
-    <!-- <link href="/styles.css" rel="stylesheet"> -->
-    <link href="https://unpkg.com/vue-simple-notify/dist/vue-simple-notify.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/vue-simple-notify/dist/vue-simple-notify.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js"
-        integrity="sha512-aoTNnqZcT8B4AmeCFmiSnDlc4Nj/KPaZyB5G7JnOnUEkdNpCZs1LCankiYi01sLTyWy+m2P+W4XM+BuQ3Q4/Dg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel</title>
+  <!-- Include Vue.js and Axios from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- Optional: Include Bootstrap CSS for styling -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Inline styles for basic styling -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .form-container {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .mt-20 {
+      margin-top: 20px;
+    }
+  </style>
 </head>
-
 <body>
-    <main id="v-app">
-
-        <!-- Custom prompt dialog -->
-        <div class="modal-content">
-            <h2>Custom Prompt</h2>
-            <input type="text" v-model="field1" placeholder="Field 1">
-            <input type="text" v-model="field2" placeholder="Field 2">
-            <button @click="submit">OK</button>
+  <div id="app">
+    <!-- Vue app container -->
+    <div v-if="!token">
+      <!-- Login Form -->
+      <div class="form-container">
+        <h2>Login</h2>
+        <form @submit.prevent="login">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" v-model="credentials.username" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" v-model="credentials.password" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+      </div>
+    </div>
+    <div v-else>
+      <!-- Admin Panel -->
+      <div>
+        <h2>Welcome, Admin!</h2>
+        <div class="mt-20">
+          <h3>System Statistics</h3>
+          <!-- Display system statistics here -->
+          <p>Total Users: {{ totalUsers }}</p>
         </div>
-    </main>
-    <script>
-        var app = new Vue({
-            el: '#v-app',
+        <div class="mt-20">
+          <h3>User Table</h3>
+          <!-- Display paginated user table -->
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="user in users" :key="user.id">
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.role }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 
-            data: {
-                field1: '',
-                field2: ''
-            },
-            methods: {
-
-                submit() {
-                    // Define the submitCustomPrompt method here
-                    axios.get('localhost:8000/auth/login', {
-                        "email": "user@example.com",
-                        "password": "password123",
-                        "tokenSecondsDuration": 100
-                    })
-                        .then(response => {
-                            // Handle the response data
-                            console.log(response);
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                        });
-                },
-
-
-
-            }
-        });
-
-    </script>
+  <script>
+    // Vue app initialization
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          credentials: {
+            username: '',
+            password: ''
+          },
+          token: '',
+          users: [],
+          totalUsers: 0
+        };
+      },
+      mounted() {
+        // Check if token exists in local storage
+        const token = localStorage.getItem('token');
+        if (token) {
+          this.token = token;
+          // Load system statistics and user data
+          this.loadSystemStatistics();
+          this.loadUsers();
+        }
+      },
+      methods: {
+        async login() {
+          try {
+            // Replace with actual backend API endpoint for authentication
+            const response = await axios.post('http://localhost:8000/v1/auth/admin', {
+              username: this.credentials.username,
+              password: this.credentials.password
+            });
+            const { token } = response.data; // Assuming the token is returned from backend
+            this.token = token;
+            localStorage.setItem('token', token);
+            // Load system statistics and user data after successful login
+            this.loadSystemStatistics();
+            this.loadUsers();
+          } catch (error) {
+            alert('Invalid username or password');
+            console.error('Error during login:', error);
+          }
+        },
+        async loadSystemStatistics() {
+          try {
+            // Replace with actual backend API endpoint to fetch system statistics
+            const response = await axios.get('http://localhost:8000/v1/system/statistics', {
+              headers: {
+                Authorization: `Bearer ${this.token}`
+              }
+            });
+            this.totalUsers = response.data.totalUsers; // Example: Assuming response.data contains totalUsers
+          } catch (error) {
+            console.error('Error loading system statistics:', error);
+          }
+        },
+        async loadUsers() {
+          try {
+            // Replace with actual backend API endpoint to fetch users
+            const response = await axios.get('http://localhost:8000/v1/users', {
+              headers: {
+                Authorization: `Bearer ${this.token}`
+              }
+            });
+            this.users = response.data.users; // Example: Assuming response.data contains users array
+          } catch (error) {
+            console.error('Error loading users:', error);
+          }
+        }
+      }
+    });
+  </script>
 </body>
-
 </html>

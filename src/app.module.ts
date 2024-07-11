@@ -11,6 +11,7 @@ import { SchedulerModule } from './libs/Scheduler/scheduler.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { AdminModule } from './admin/admin.module';
 @Global()
 @Module({
   imports: [
@@ -29,7 +30,9 @@ import { APP_GUARD } from '@nestjs/core';
     }]),
     ScheduleModule.forRoot(),  // Initialize the ScheduleModule here
     SchedulerModule,
-    AuthModule,],
+    AuthModule,
+    AdminModule
+  ],
   providers: [{
     provide: APP_GUARD,
     useClass: ThrottlerGuard,
