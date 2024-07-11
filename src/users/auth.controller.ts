@@ -1,4 +1,4 @@
-import { Body, Query, Controller, Param, Patch, Post, Req, UseGuards, Get, UsePipes, ValidationPipe, HttpCode } from '@nestjs/common';
+import { Body, Query, Controller, Param, Patch, Post, Req, UseGuards, Get, UsePipes, ValidationPipe, HttpCode, Logger } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user';
 import { Request } from 'express';
 import { LogInDto } from './dto/login.dto';
@@ -6,10 +6,12 @@ import { UsersGuard } from './guards/users.guard';
 import { PageOptionsDto } from '@app/libs/pagination/pageOption.dto';
 import { AuthService } from './auth.service';
 import { ApiTags, ApiResponse, ApiOperation, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
+import { Throttle } from '@nestjs/throttler';
 
 
-@Controller('auth')
+@Controller('v1/auth')
 @ApiTags('Authentication')
+@Throttle({ default: { limit:+process.env.publicApiRatLimit ||30, ttl: +process.env.ttlRatLimit ||300 } })
 export class AuthController {
 
 
@@ -20,9 +22,11 @@ export class AuthController {
   @Post("signup")
   @ApiOperation({ summary: 'Signup user' })
   @ApiBody({ type: CreateUserDto })
+  
 
   create(@Body() createUserDto: CreateUserDto) {
-    return this.authService.signUP(createUserDto);
+    const response =this.authService.signUP(createUserDto);    
+    return response
   }
 
 
@@ -31,10 +35,12 @@ export class AuthController {
   @Post("login")
   @ApiOperation({ summary: 'Login user' })
   @ApiBody({ type: LogInDto })  // set default body 
+
   login(@Body() loginInDto: LogInDto) {
     return this.authService.login(loginInDto);
   }
 
+  @Throttle({ default: { limit:+process.env.authApiRatLimit ||30, ttl: +process.env.ttlRatLimit ||300 } })
   @UseGuards(UsersGuard)
   @HttpCode(200)
   @UsePipes(ValidationPipe)

@@ -27,7 +27,6 @@ async  canActivate(
 
     if (decoded !== null) {
       request.user = decoded; // Set the payload in the request context
-      console.log('@@@@@@@@@@@@@@@{request.user}',request.user);
     }
     return decoded !== null;
   }

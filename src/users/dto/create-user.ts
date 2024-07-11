@@ -1,4 +1,4 @@
-import { IsString, IsEmail, IsOptional, IsDate, IsNumber } from 'class-validator';
+import { IsString, IsEmail, IsOptional, IsDate, IsNumber, Min, Max } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateUserDto {
@@ -58,6 +58,9 @@ export class CreateUserDto {
   @IsOptional()
   @IsNumber()
   @ApiPropertyOptional({ example: 100 })
+  @Min(30, { message: 'tokenSecondsDuration must be at least 30' })
+  @Max(86400, { message: 'tokenSecondsDuration max 86400' })
+
 
   tokenSecondsDuration: Number;
 }

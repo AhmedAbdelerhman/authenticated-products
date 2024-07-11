@@ -7,7 +7,6 @@ export class TypeOrmMethods_Find {
     public readonly entityRepository: Repository<any>,
     public serviceOptions ?: ServiceOptions,
   ) {
-    console.log('@@@@@@@@@@@@@@@{serviceOptions}', this.serviceOptions);
   }
 
   // find a single record by specific key
@@ -20,17 +19,7 @@ export class TypeOrmMethods_Find {
     return data;
   }
 
-  // // make filter dynamic 
-  // setFilter(filters) {
-  //   Object.keys(filters).forEach((filter) => {
-  //     if (typeof filters[filter] == 'string') {
-  //       this.serviceOptions.filter[filter] = Like(`%${filters[filter]}%`);
-  //     } else {
-  //       this.serviceOptions.filter[filter] = filters[filter];
-  //     }
-  //   });
-  // }
-  // find with pagination
+
   async FindAllPagination({products:productsArray}: any) {
     // this.setFilter(filters);
     // pagination

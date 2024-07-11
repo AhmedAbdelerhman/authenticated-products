@@ -13,9 +13,7 @@ import * as bcrypt from 'bcrypt';
 import { TypeOrmMethods_Find } from '@app/libs/typeorm/find.orm';
 import { Request } from 'express';
 
-const configService = new ConfigService()
 interface JwtPayload {
-    email: string;
     id: string
 }
 
@@ -24,8 +22,7 @@ export class AuthService {
 
     constructor(
         @InjectRepository(UserEintity)
-        private userRepository: Repository<UserEintity>,
-        private jsonService: JsonService
+        private userRepository: Repository<UserEintity>
 
     ) { }
 
@@ -33,7 +30,7 @@ export class AuthService {
 
     async createToken(user: any, expiresIn: any = process.env.tokenSecondsDuration): Promise<string> {
 
-        const payload: JwtPayload = { email: user.email, id: user.id };
+        const payload: JwtPayload = {  id: user.id };
         return jwt.sign(payload, this.secretKey, { expiresIn: expiresIn + "s" }); // Adjust token expiration as needed
     }
 
@@ -51,9 +48,7 @@ export class AuthService {
 
 
     async signUP(createUserDto: CreateUserDto) {
-
         const qBuilder = new TypeOrmMethods_Create(this.userRepository);
-
         const existEmail = await this.findOneByEmail(createUserDto['email']);
         if (existEmail) {
             return ApiResponseMsg.errorResponse("email already exist", 406)

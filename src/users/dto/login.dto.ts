@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString, IsEmail, IsOptional, IsDate, IsNotEmpty, IsNumber } from 'class-validator';
+import { IsString, IsEmail, IsOptional, IsDate, IsNotEmpty, IsNumber, Min, Max } from 'class-validator';
 
 export class LogInDto {
 
@@ -18,6 +18,9 @@ export class LogInDto {
   @IsOptional()
   @IsNumber()
   @ApiPropertyOptional({ example: 100 })
+  @Min(30, { message: 'tokenSecondsDuration must be at least 30' })
+  @Max(86400, { message: 'tokenSecondsDuration max 86400' })
+
 
   tokenSecondsDuration: Number ;
 

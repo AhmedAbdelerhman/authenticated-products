@@ -1,4 +1,4 @@
-import { OnModuleInit } from '@nestjs/common';
+import { Logger, OnModuleInit } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
 import {
     DataSource,
@@ -20,12 +20,9 @@ export class UserSubscriber
 
     // inject service outsite dependency injection
     async onModuleInit() { }
-
     listenTo() {
         return UserEintity;
     }
-
-
     async beforeInsert(event: InsertEvent<UserEintity>): Promise<any> {
         const user = event.entity;
         const saltRounds = 10; // Adjust the number of salt rounds as needed for your security requirements
@@ -35,9 +32,9 @@ export class UserSubscriber
             user.password = hashedPassword;
         }
     }
-
     afterInsert(event: InsertEvent<UserEintity>) {
+        Logger.getTimestamp();
         // Your logic here
-        console.log('Entity inserted:', event.entity);
+        Logger.log(`new user inserted: with id  ${event.entity.id} and email ${event.entity.email} `,);
     }
 }

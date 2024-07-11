@@ -24,9 +24,6 @@ export class TypeOrmMethods_Create {
         HttpStatus.UNPROCESSABLE_ENTITY,
       );
     }
-
-
-
     return addedItem;
       
     } catch (error) {
