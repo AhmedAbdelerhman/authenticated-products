@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { ApiResponseMsg } from '@app/libs/errors/api-response-msg';
 
-@Injectable({ scope: Scope.REQUEST })
+@Injectable()
 export class UsersGuard implements CanActivate {
   constructor(
     private authService: AuthService
