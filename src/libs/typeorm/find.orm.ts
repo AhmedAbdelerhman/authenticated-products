@@ -61,4 +61,58 @@ export class TypeOrmMethods_Find {
 
     return response;
   }
+
+
+
+ 
+
+  async FindAllPaginationUsers(
+    query: TypeOrmMethodsInterface,
+  ) {
+    // pagination
+    const skip = (this.serviceOptions.page - 1) * this.serviceOptions.limit;
+    const take = this.serviceOptions.limit;
+
+    // add filter conditions
+   
+    // do find
+    let [results, total] = await this.entityRepository.findAndCount({
+      ...query,
+      loadEagerRelations: false,
+      skip: skip,
+      take: take,
+    });
+
+    let totalPages = 0;
+    // if has records
+    if (total) {
+      totalPages = Math.ceil(total / this.serviceOptions.limit);
+    }
+
+    let response: any = null;
+    if (total > 0) {
+      response = {
+        meta: {
+          total: Number(total),
+          per_page: Number(results.length),
+          total_pages: Number(totalPages),
+          current_page: Number(this.serviceOptions.page),
+        },
+        results: results,
+      };
+    } else {
+      response = {
+        meta: {
+          total: Number(total),
+          per_page: Number(results.length),
+          total_pages: Number(totalPages),
+          current_page: Number(this.serviceOptions.page),
+        },
+        results: [],
+      };
+    }
+
+    return response;
+  }
+
 }

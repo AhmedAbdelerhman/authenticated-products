@@ -5,39 +5,29 @@ import { Throttle } from '@nestjs/throttler';
 import { LogInDto } from './dto/login.dto';
 import { AdminGuard } from './guards/admin.guard';
 import { AuthAdminService } from './admin-auth.service';
+import { AdminStaticsService } from './admin-statics.service';
 import { ApiExcludeEndpoint } from '@nestjs/swagger';
 
 
-@Controller('v1/admin/auth')
+@Controller('v1/admin/')
 @Throttle({ default: { limit:+process.env.publicApiRatLimit ||30, ttl: +process.env.ttlRatLimit ||300 } })
-export class AdminAuthController {
+export class AdminStaticsController {
 
 
 
-  constructor(private readonly authService: AuthAdminService) { }
+  constructor(private readonly adminStaticsService: AdminStaticsService) { }
 
  
-  @UsePipes(ValidationPipe)
-  @HttpCode(200)
-  @Post("login")
-  @ApiExcludeEndpoint() 
-
-
-  adminLogin(@Body() loginInDto: LogInDto) {
-    return this.authService.adminLogin(loginInDto);
-  }
-
 
   @Throttle({ default: { limit:+process.env.authApiRatLimit ||30, ttl: +process.env.ttlRatLimit ||300 } })
   @UseGuards(AdminGuard)
   @HttpCode(200)
   @UsePipes(ValidationPipe)
-  @Post("whoami")
+  @Get("statics")
   @ApiExcludeEndpoint() 
 
-
-  whoAmI(@Req() req: Request & { user: string }) {
-    return {role:"admin"}
+  statics(@Query() pageOptionsDto: PageOptionsDto,)  {
+    return this.adminStaticsService.adminStatics(pageOptionsDto)
   }
 
 }

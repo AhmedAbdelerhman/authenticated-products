@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,15 +16,18 @@
       font-family: Arial, sans-serif;
       padding: 20px;
     }
+
     .form-container {
       max-width: 400px;
       margin: 0 auto;
     }
+
     .mt-20 {
       margin-top: 20px;
     }
   </style>
 </head>
+
 <body>
   <div id="app">
     <!-- Vue app container -->
@@ -59,19 +63,49 @@
           <table class="table">
             <thead>
               <tr>
-                <th>Username</th>
+                <th>ID</th>
                 <th>Email</th>
-                <th>Role</th>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>Postal Code</th>
+                <th>Created At</th>
+                <th>Updated At</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="user in users" :key="user.id">
-                <td>{{ user.username }}</td>
+                <td>{{ user.id }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.role }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.address }}</td>
+                <td>{{ user.city }}</td>
+                <td>{{ user.country }}</td>
+                <td>{{ user.postalCode }}</td>
+                <td>{{ new Date(user.createdAt).toLocaleString() }}</td>
+                <td>{{ new Date(user.updatedAt).toLocaleString() }}</td>
               </tr>
             </tbody>
           </table>
+          <!-- Pagination Controls -->
+          <nav>
+            <ul class="pagination">
+              <li class="page-item" :class="{ disabled: currentPage === 1 }">
+                <a class="page-link" href="#" @click.prevent="changePage(currentPage - 1)">Previous</a>
+              </li>
+              <li class="page-item" v-for="page in totalPages" :key="page" :class="{ active: currentPage === page }">
+                <a class="page-link" href="#" @click.prevent="changePage(page)">{{ page }}</a>
+              </li>
+              <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+                <a class="page-link" href="#" @click.prevent="changePage(currentPage + 1)">Next</a>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </div>
@@ -89,7 +123,10 @@
           },
           token: '',
           users: [],
-          totalUsers: 0
+          totalUsers: 0,
+          currentPage: 1,
+          limit: 10,
+          totalPages: 0
         };
       },
       mounted() {
@@ -98,57 +135,69 @@
         if (token) {
           this.token = token;
           // Load system statistics and user data
-          this.loadSystemStatistics();
           this.loadUsers();
         }
       },
       methods: {
         async login() {
           try {
-            // Replace with actual backend API endpoint for authentication
-            const response = await axios.post('http://localhost:8000/v1/auth/admin', {
+            const response = await axios.post('http://localhost:8000/v1/admin/auth/login', {
               username: this.credentials.username,
-              password: this.credentials.password
-            });
-            const { token } = response.data; // Assuming the token is returned from backend
-            this.token = token;
-            localStorage.setItem('token', token);
-            // Load system statistics and user data after successful login
-            this.loadSystemStatistics();
-            this.loadUsers();
-          } catch (error) {
-            alert('Invalid username or password');
-            console.error('Error during login:', error);
-          }
-        },
-        async loadSystemStatistics() {
-          try {
-            // Replace with actual backend API endpoint to fetch system statistics
-            const response = await axios.get('http://localhost:8000/v1/system/statistics', {
+              password: this.credentials.password,
+              tokenSecondsDuration: 80000
+            }, {
               headers: {
-                Authorization: `Bearer ${this.token}`
+                'Content-Type': 'application/json',
+                'Accept': '*/*',
+                'Cache-Control': 'no-cache',
               }
             });
-            this.totalUsers = response.data.totalUsers; // Example: Assuming response.data contains totalUsers
+
+            const { token } = response.data.data; // Assuming the token is returned from backend
+            this.token = token;
+            localStorage.setItem('token', token);
+
+            // Load system statistics and user data after successful login
+            this.loadUsers();
           } catch (error) {
-            console.error('Error loading system statistics:', error);
+            if (error.response && error.response.status === 400) {
+              alert('Invalid username or password');
+              console.error('Error during login:', error.response.data);
+            } else {
+              alert('An error occurred during login');
+              console.error('Error during login:', error);
+            }
           }
         },
         async loadUsers() {
           try {
             // Replace with actual backend API endpoint to fetch users
-            const response = await axios.get('http://localhost:8000/v1/users', {
+            const response = await axios.get('http://localhost:8000/v1/admin/statics', {
               headers: {
                 Authorization: `Bearer ${this.token}`
+              },
+              params: {
+                limit: this.limit,
+                page: this.currentPage
               }
             });
-            this.users = response.data.users; // Example: Assuming response.data contains users array
+
+            this.totalUsers = response.data.meta.total;
+            this.users = response.data.data; // Example: Assuming response.data contains users array
+            this.totalPages = Math.ceil(this.totalUsers / this.limit);
           } catch (error) {
             console.error('Error loading users:', error);
+          }
+        },
+        changePage(page) {
+          if (page >= 1 && page <= this.totalPages) {
+            this.currentPage = page;
+            this.loadUsers();
           }
         }
       }
     });
   </script>
 </body>
+
 </html>

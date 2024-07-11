@@ -34,7 +34,7 @@ export class AuthAdminService {
     }
     async adminLogin(loginUserDto: LogInDto) {
 
-        if(process.env.adminUsername !==loginUserDto.userName || process.env.adminPassword !==loginUserDto.password)
+        if(process.env.adminUsername !==loginUserDto.username || process.env.adminPassword !==loginUserDto.password)
         {
             return ApiResponseMsg.errorResponse("wrong email or password", 401)
 

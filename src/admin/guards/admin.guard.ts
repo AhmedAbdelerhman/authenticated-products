@@ -9,6 +9,7 @@ export class AdminGuard implements CanActivate {
   constructor(
     private authService: AuthAdminService
   ) { }
+  
   async canActivate(
     context: ExecutionContext,
   ) {
@@ -18,15 +19,13 @@ export class AdminGuard implements CanActivate {
       ApiResponseMsg.errorResponse("please insert authorization header ", 403)
     }
     const token = authorization.split(' ')[1];
-
     if (!token) {
       return false;
     }
 
     const decoded = await this.authService.validateToken(token)
 
-    console.log('@@@@@@@@@@@@@@@{decoded}', decoded);
-    if (decoded.role != "admin") {
+    if (decoded?.role != "admin") {
       return false
     }
     if (decoded !== null) {
