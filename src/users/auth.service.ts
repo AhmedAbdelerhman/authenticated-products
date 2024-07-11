@@ -88,7 +88,7 @@ export class AuthService {
         return ApiResponseMsg.successResponse('Login successful',
             {
                 user_id: user['id'],
-                expires_in: loginUserDto.tokenSecondsDuration + "s" || process.env.tokenSecondsDuration + "s",
+                expires_in: loginUserDto.tokenSecondsDuration ? loginUserDto.tokenSecondsDuration + "s"  : process.env.tokenSecondsDuration + "s",
                 token
             }, 200);
 
