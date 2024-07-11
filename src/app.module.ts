@@ -14,11 +14,11 @@ import { APP_GUARD } from '@nestjs/core';
 @Global()
 @Module({
   imports: [
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public',),
-
-      exclude: ['/api/(.*)'],
-    }),
+    ServeStaticModule.forRoot(      {
+      rootPath: join(__dirname, '..', 'public'),
+      serveRoot: '/*',
+      renderPath: '/index.html',
+    },),
     TypeOrmModule.forRoot({
       ...ormOptions,
     }),

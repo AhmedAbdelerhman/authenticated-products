@@ -2,62 +2,116 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Websockets Client</title>
-    <!-- <link href="/styles.css" rel="stylesheet"> -->
-    <link href="https://unpkg.com/vue-simple-notify/dist/vue-simple-notify.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/vue-simple-notify/dist/vue-simple-notify.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js"
-        integrity="sha512-aoTNnqZcT8B4AmeCFmiSnDlc4Nj/KPaZyB5G7JnOnUEkdNpCZs1LCankiYi01sLTyWy+m2P+W4XM+BuQ3Q4/Dg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to JWT Free Service</title>
+  <!-- Include Vue.js from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <!-- Optional: Include Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- Inline styles for basic styling -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #007bff;
+      text-align: center;
+    }
+
+    .bullet-list {
+      margin-top: 20px;
+      padding-left: 20px;
+    }
+
+    .bullet-list li {
+      line-height: 1.6;
+    }
+
+    .links {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .links a {
+      color: #007bff;
+      text-decoration: none;
+      margin: 0 10px;
+      display: block;
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #007bff;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .links a:hover {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .icon {
+      margin-right: 5px;
+    }
+  </style>
 </head>
 
 <body>
-    <main id="v-app">
+  <div id="app" class="container">
+    <h1>Welcome to JWT Free Service</h1>
+    <div class="bullet-list">
+      <ul>
+        <li><strong>Easy Authentication Integration:</strong> Apply JWT authentication effortlessly in your frontend and mobile apps projects.</li>
+        <li><strong>Secure Token Management:</strong> Set JWT expiration times during login and signup to secure your applications.</li>
+        <li><strong>Dummy Data Fetching:</strong> Access authenticated dummy data using JWT tokens to simulate real-world scenarios.</li>
+      </ul>
+    </div>
+    <p>Explore our resources and get started with integrating JWT authentication:</p>
+    <div class="links">
+      <a href="https://swagger.io" target="_blank">
+        <i class="fas fa-book icon"></i>Swagger for Documentation
+      </a>
+      <a href="https://github.com/your-repo" target="_blank">
+        <i class="fab fa-github icon"></i>Give the Project a Star on GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/your-profile" target="_blank">
+        <i class="fab fa-linkedin icon"></i>Follow for Future Versions on LinkedIn
+      </a>
+      <a href="https://hub.docker.com/r/your-docker-image" target="_blank">
+        <i class="fab fa-docker icon"></i>you can use Docker Image in your local machine
+      </a>
+    </div>
+  </div>
 
-        <!-- Custom prompt dialog -->
-        <div class="modal-content">
-            <h2>Custom Prompt</h2>
-            <input type="text" v-model="field1" placeholder="Field 1">
-            <input type="text" v-model="field2" placeholder="Field 2">
-            <button @click="submit">OK</button>
-        </div>
-    </main>
-    <script>
-        var app = new Vue({
-            el: '#v-app',
-
-            data: {
-                field1: '',
-                field2: ''
-            },
-            methods: {
-
-                submit() {
-                    // Define the submitCustomPrompt method here
-                    axios.get('localhost:8000/auth/login', {
-                        "email": "user@example.com",
-                        "password": "password123",
-                        "tokenSecondsDuration": 100
-                    })
-                        .then(response => {
-                            // Handle the response data
-                            console.log(response);
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                        });
-                },
-
-
-
-            }
-        });
-
-    </script>
+  <script>
+    // Vue app initialization
+    new Vue({
+      el: '#app',
+      data() {
+        return {};
+      },
+      mounted() {
+        // Additional initialization if needed
+      },
+      methods: {
+        // Define any methods if needed
+      }
+    });
+  </script>
 </body>
 
 </html>
