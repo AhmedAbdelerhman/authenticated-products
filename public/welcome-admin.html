@@ -143,7 +143,7 @@
       methods: {
         async login() {
           try {
-            const response = await axios.post('http://localhost:8000/v1/admin/auth/login', {
+            const response = await axios.post('https://authintated-products.onrender.com/v1/admin/auth/login', {
               username: this.credentials.username,
               password: this.credentials.password,
               tokenSecondsDuration: 80000
@@ -166,7 +166,6 @@
               alert('Invalid username or password');
               console.error('Error during login:', error.response.data);
             } else {
-              alert('An error occurred during login');
               console.error('Error during login:', error);
             }
           }
@@ -174,7 +173,7 @@
         async loadUsers() {
           try {
             // Replace with actual backend API endpoint to fetch users
-            const response = await axios.get('http://localhost:8000/v1/admin/statics', {
+            const response = await axios.get('https://authintated-products.onrender.com/v1/admin/statics', {
               headers: {
                 Authorization: `Bearer ${this.token}`
               },
