@@ -1,7 +1,6 @@
 import {
   HttpException,
-  NotAcceptableException,
-  NotFoundException,
+  NotFoundException
 } from '@nestjs/common';
 
 export class ApiResponseMsg {

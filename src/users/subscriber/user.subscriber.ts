@@ -1,13 +1,12 @@
 import { Logger, OnModuleInit } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
+import * as bcrypt from 'bcrypt';
 import {
     DataSource,
     EntitySubscriberInterface,
     EventSubscriber,
-    InsertEvent,
-    LoadEvent,
+    InsertEvent
 } from 'typeorm';
-import * as bcrypt from 'bcrypt';
 
 import { UserEntity } from '../entities/user.entity';
 @EventSubscriber()

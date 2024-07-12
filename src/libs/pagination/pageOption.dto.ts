@@ -1,15 +1,12 @@
-import { Transform, Type } from 'class-transformer';
+import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 import {
-  Allow,
-  IsEnum,
   IsInt,
   IsNumber,
   IsOptional,
-  IsString,
   Max,
-  Min,
+  Min
 } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
 
 export class PageOptionsDto {
   @Type(() => Number)

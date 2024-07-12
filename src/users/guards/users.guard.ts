@@ -1,7 +1,6 @@
-import { CanActivate, ExecutionContext, Injectable, Scope } from '@nestjs/common';
-import { Observable } from 'rxjs';
-import { AuthService } from '../auth.service';
 import { ApiResponseMsg } from '@app/libs/errors/api-response-msg';
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import { AuthService } from '../auth.service';
 
 @Injectable()
 export class UsersGuard implements CanActivate {
