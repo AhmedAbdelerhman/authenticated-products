@@ -1,19 +1,17 @@
 import { ormOptions } from './ormconfig';
 import { Module, Global, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
-import { Connection } from 'typeorm';
-import { AuthModule } from './users/user.module';
-import { JsonService } from './redFromJSon.service';
+import { APP_GUARD } from '@nestjs/core';
+import { ScheduleModule } from '@nestjs/schedule';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { join } from 'path';
 import { SchedulerModule } from './libs/Scheduler/scheduler.module';
-import { ScheduleModule } from '@nestjs/schedule';
-import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
-import { APP_GUARD } from '@nestjs/core';
 import { AdminModule } from './admin/admin.module';
 import { NextFunction } from 'express';
 import { AdminStaticsService } from './admin/admin-statics.service';
+import { AuthModule } from './users/user.module';
+import { JsonService } from './redFromJSon.service';
 @Global()
 @Module({
   imports: [

@@ -1,4 +1,4 @@
-import { Injectable, Global } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import * as fs from 'fs/promises'; // Use 'fs/promises' for async/await functionality
 
 @Injectable()

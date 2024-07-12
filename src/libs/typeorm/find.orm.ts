@@ -1,4 +1,4 @@
-import { Like, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { TypeOrmMethodsInterface } from './find.interface';
 import { ServiceOptions } from './serviceOptions.interfaces';
 

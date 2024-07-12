@@ -1,9 +1,9 @@
-import { Body, Query, Controller, Param, Patch, Post, Req, UseGuards, Get, UsePipes, ValidationPipe } from '@nestjs/common';
-import { UsersGuard } from './guards/users.guard';
 import { PageOptionsDto } from '@app/libs/pagination/pageOption.dto';
-import { ProductsService } from './products.service';
-import { ApiOperation, ApiResponse, ApiTags, ApiBearerAuth, ApiParam, ApiQuery } from '@nestjs/swagger';
+import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
+import { UsersGuard } from './guards/users.guard';
+import { ProductsService } from './products.service';
 
 @Controller("v1")
 @ApiTags('get products') // Optional: Add tags for better organization
