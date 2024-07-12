@@ -1,12 +1,11 @@
-import { Body, Query, Controller, Param, Patch, Post, Req, UseGuards, Get, UsePipes, ValidationPipe, HttpCode, Logger } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user';
+import { Body, Controller, HttpCode, Post, Req, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Throttle } from '@nestjs/throttler';
 import { Request } from 'express';
+import { AuthService } from './auth.service';
+import { CreateUserDto } from './dto/create-user';
 import { LogInDto } from './dto/login.dto';
 import { UsersGuard } from './guards/users.guard';
-import { PageOptionsDto } from '@app/libs/pagination/pageOption.dto';
-import { AuthService } from './auth.service';
-import { ApiTags, ApiResponse, ApiOperation, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
-import { Throttle } from '@nestjs/throttler';
 
 
 @Controller('v1/auth')

@@ -1,17 +1,15 @@
-import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import * as jwt from 'jsonwebtoken';
-import { CreateUserDto } from './dto/create-user';
-import { TypeOrmMethods_Create } from '@app/libs/typeorm/create.orm';
-import { InjectRepository } from '@nestjs/typeorm';
-import { UserEntity } from './entities/user.entity';
-import { Repository } from 'typeorm';
-import { JsonService } from '@app/redFromJSon.service';
 import { ApiResponseMsg } from '@app/libs/errors/api-response-msg';
-import { LogInDto } from './dto/login.dto';
-import * as bcrypt from 'bcrypt';
+import { TypeOrmMethods_Create } from '@app/libs/typeorm/create.orm';
 import { TypeOrmMethods_Find } from '@app/libs/typeorm/find.orm';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import * as bcrypt from 'bcrypt';
 import { Request } from 'express';
+import * as jwt from 'jsonwebtoken';
+import { Repository } from 'typeorm';
+import { CreateUserDto } from './dto/create-user';
+import { LogInDto } from './dto/login.dto';
+import { UserEntity } from './entities/user.entity';
 
 interface JwtPayload {
     id: string
