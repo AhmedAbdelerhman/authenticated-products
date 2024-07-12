@@ -56,6 +56,7 @@
           <h3>System Statistics</h3>
           <!-- Display system statistics here -->
           <p>Total Users: {{ totalUsers }}</p>
+          <p>Total requests: {{ totalRequests }}</p>
         </div>
         <div class="mt-20">
           <h3>User Table</h3>
@@ -126,7 +127,8 @@
           totalUsers: 0,
           currentPage: 1,
           limit: 10,
-          totalPages: 0
+          totalPages: 0,
+          totalRequests:0
         };
       },
       mounted() {
@@ -183,6 +185,7 @@
             });
 
             this.totalUsers = response.data.meta.total;
+            this.totalRequests=response.data.meta.totalRequest
             this.users = response.data.data; // Example: Assuming response.data contains users array
             this.totalPages = Math.ceil(this.totalUsers / this.limit);
           } catch (error) {

@@ -1,25 +1,35 @@
 # Use the official Node.js LTS (Alpine) image as the base image
-FROM node:14-alpine
+FROM node:18-alpine
 
-# Set the working directory inside the container
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy the package.json and package-lock.json to the container
-COPY package.json ./
+# Copy package.json and package-lock.json
+COPY package*.json ./
 
-# Install Node.js dependencies
-RUN npm install  
+ENV NODE_ENV=production
+# Install dependencies
+RUN npm install
 
-# Copy the rest of the application files to the container
+# Install NestJS CLI globally
+RUN npm install -g @nestjs/cli
+
+# Copy the rest of your application code
 COPY . .
-RUN npm install -g webpack-cli
 
-
+# Set environment variables
+ENV PORT=8000
+ENV SECRET_KEY=ahmed01091749487
+ENV TOKEN_SECONDS_DURATION=100
+ENV PUBLIC_API_RATE_LIMIT=50
+ENV AUTH_API_RATE_LIMIT=70
+ENV TTL_RATE_LIMIT=300
 # Build the Nest.js app
 RUN npm run build
+
 
 # Expose the port your Nest.js application is listening on
 EXPOSE 8000
 
-# Start the Nest.js application
+# Command to run the application
 CMD ["npm", "run", "start:prod"]

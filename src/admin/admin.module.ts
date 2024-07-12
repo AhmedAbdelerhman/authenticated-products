@@ -9,6 +9,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 @Module({
   imports:[TypeOrmModule.forFeature([UserEntity])],
   controllers: [AdminAuthController ,AdminStaticsController],
-  providers: [AuthAdminService, AdminStaticsService] 
+  providers: [AuthAdminService, AdminStaticsService], 
+  exports:[AdminStaticsService]
 })
 export class AdminModule {}

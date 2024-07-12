@@ -20,6 +20,15 @@ export class AdminStaticsService {
 
     ) { }
 
+    private counter = 0;
+
+    incrementCounterRequest(): void {
+      this.counter++;
+    }
+  
+  private  getCounterRequest(): number {
+      return this.counter;
+    }
     async adminStatics(options: PageOptionsDto) {
 
         Object.assign(this._options, options);
@@ -29,7 +38,10 @@ export class AdminStaticsService {
         );
         const records = await qBuilder.FindAllPaginationUsers({});
         
+          records.meta.totalRequest=this.getCounterRequest()
         return ApiResponseMsg.successResponseWithPagination('succuss', records);
     }
+
+
 
 }

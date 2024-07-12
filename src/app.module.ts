@@ -1,5 +1,5 @@
 import { ormOptions } from './ormconfig';
-import { Module, Global } from '@nestjs/common';
+import { Module, Global, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { Connection } from 'typeorm';
@@ -12,6 +12,8 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { AdminModule } from './admin/admin.module';
+import { NextFunction } from 'express';
+import { AdminStaticsService } from './admin/admin-statics.service';
 @Global()
 @Module({
   imports: [
@@ -48,7 +50,17 @@ import { AdminModule } from './admin/admin.module';
     JsonService],
   exports: [JsonService]
 })
-export class AppModule {
-
-
+export class AppModule  implements NestModule {
+  constructor(private readonly adminStaticsService: AdminStaticsService) {}
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply((req: Request, res: Response, next: NextFunction
+      ) => {
+        if (!req.headers["referer"]?.includes("admin")) {
+          this.adminStaticsService.incrementCounterRequest();
+        }
+        next();
+      })
+      .forRoutes("*");
+  }
 }
