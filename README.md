@@ -1,4 +1,4 @@
-**give the project a star if you like it**
+**give the project a star if you like it 😊 **
 
 **a free JWT Auth Service for Frontend Learners** : https://authintated-products.onrender.com/api
 
