@@ -1,6 +1,8 @@
+**give the project a star if you like it**
+
 **a free JWT Auth Service for Frontend Learners** : https://authintated-products.onrender.com/api
 
-***Are you a frontend developer eager to implement authentication in your projects without delving into backend complexities? Do you want to seamlessly integrate JWT authentication to secure your routes?*** Look !
+***Are you a frontend developer eager to implement authentication in your projects without delving into backend complexities? Do you want to seamlessly integrate JWT authentication to secure your routes?*** Look!
 
 Introducing our JWT Auth Service, specially designed for frontend learners. This service allows you to create accounts, log in, and receive JWT tokens for accessing authenticated routes. With our service, you can control the expiration duration of your tokens, making it perfect for real-world project demonstrations and practice.
 
@@ -10,7 +12,7 @@ Introducing our JWT Auth Service, specially designed for frontend learners. This
 - **Customizable Token Duration:** Set your token's expiration time as per your needs. For instance:
 `````
 {
-    "username": "admin",
+    "username": "ahmed abdelraham",
     "password": "yourpassword",
     "tokenSecondsDuration": 60000
 }
@@ -26,6 +28,6 @@ Introducing our JWT Auth Service, specially designed for frontend learners. This
 
 **Notes:**
 
-- The database is cleared every day to ensure a fresh start for all users.
+- The database is cleared daily to ensure a fresh start for all users.
 
-Get started today and take your frontend authentication skills to the next level!
+Get started today and take your front-end authentication skills to the next level!
