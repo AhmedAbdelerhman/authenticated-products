@@ -12,7 +12,7 @@ Introducing our JWT Auth Service, specially designed for frontend learners. This
 - **Customizable Token Duration:** Set your token's expiration time as per your needs. For instance:
 `````
 {
-    "username": "ahmed abdelraham",
+    "emai": "ahmedabdelraham@gmail.com",
     "password": "yourpassword",
     "tokenSecondsDuration": 60000
 }
