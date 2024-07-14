@@ -109,8 +109,21 @@ export class AuthService {
         );
     }
 
+    async findOneById(id: any) {
+        const qBuilder = new TypeOrmMethods_Find(
+            this.userRepository,
+        );
+        return qBuilder.FindOneBy({
+            where: {
+                id
+            },
+
+        }
+        );
+    }
+
     async WhoAmI(req: Request & { user: string }) {
-        const user = await this.findOneByEmail(req.user['email']);
+        const user = await this.findOneById(req.user['id']);
         const { password, updatedAt, ...userData } = user
         return ApiResponseMsg.successResponse('success', userData, 200);
 
