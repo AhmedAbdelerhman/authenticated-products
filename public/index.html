@@ -2,6 +2,15 @@
 <html lang="en">
 
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5LH89CWY30"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-5LH89CWY30');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welcome to JWT Free Service</title>
@@ -47,7 +56,8 @@
       text-align: center;
     }
 
-    .links a {
+    .links a,
+    .download-button {
       color: #007bff;
       text-decoration: none;
       margin: 0 10px;
@@ -57,9 +67,12 @@
       border: 1px solid #007bff;
       border-radius: 5px;
       transition: background-color 0.3s ease;
+      text-align: center;
+      cursor: pointer;
     }
 
-    .links a:hover {
+    .links a:hover,
+    .download-button:hover {
       background-color: #007bff;
       color: #fff;
     }
@@ -75,9 +88,12 @@
     <h1>Welcome to JWT Free Service</h1>
     <div class="bullet-list">
       <ul>
-        <li><strong>Easy Authentication Integration:</strong> Apply JWT authentication effortlessly in your frontend and mobile apps projects.</li>
-        <li><strong>Secure Token Management:</strong> Set JWT expiration times during login and signup to secure your applications.</li>
-        <li><strong>Dummy Data Fetching:</strong> Access authenticated dummy data using JWT tokens to simulate real-world scenarios.</li>
+        <li><strong>Easy Authentication Integration:</strong> Apply JWT authentication effortlessly in your frontend and
+          mobile apps projects.</li>
+        <li><strong>Secure Token Management:</strong> Set JWT expiration times during login and signup to secure your
+          applications.</li>
+        <li><strong>Dummy Data Fetching:</strong> Access authenticated dummy data using JWT tokens to simulate
+          real-world scenarios.</li>
       </ul>
     </div>
     <p>Explore our resources and get started with integrating JWT authentication:</p>
@@ -91,9 +107,9 @@
       <a href="https://www.linkedin.com/in/ahmed-abdalrahman-1075b3173/" target="_blank">
         <i class="fab fa-linkedin icon"></i>Follow for Future Versions on LinkedIn
       </a>
-      <!-- <a href="https://hub.docker.com/r/your-docker-image" target="_blank">
-        <i class="fab fa-docker icon"></i>you can use Docker Image in your local machine
-      </a> -->
+      <div class="download-button" @click="downloadPostmanCollection">
+        <i class="fas fa-download icon"></i>Download Postman Collection
+      </div>
     </div>
   </div>
 
@@ -108,7 +124,25 @@
         // Additional initialization if needed
       },
       methods: {
-        // Define any methods if needed
+        async downloadPostmanCollection() {
+          try {
+            const response = await fetch('https://authintated-products.onrender.com/v1/download', {
+              method: 'GET',
+            });
+            if (!response.ok) throw new Error('Network response was not ok');
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'auth-product.postman_collection.json';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+          } catch (error) {
+            console.error('Error downloading the file:', error);
+          }
+        }
       }
     });
   </script>

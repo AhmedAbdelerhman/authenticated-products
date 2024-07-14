@@ -1,0 +1,244 @@
+{
+	"info": {
+		"_postman_id": "1db75d9f-c7f2-4e51-b49b-efe04e4f597b",
+		"name": "auth-product",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "34947168"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "https://authintated-products.onrender.com/v1/auth/signup",
+							"protocol": "https",
+							"host": [
+								"authintated-products",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"signup"
+							]
+						},
+						"description": "create user",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"ahmed123\",\n  \"firstName\": \"Ahmed\",\n  \"lastName\": \"Abdelrahman\",\n  \"email\": \"usesguder@example.com\",\n  \"password\": \"password123\",\n  \"address\": \"cairo egypt\",\n  \"city\": \"city\",\n  \"country\": \"egypt\",\n  \"postalCode\": \"12345\",\n  \"tokenSecondsDuration\": 100\n}"
+						}
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"var jsonData = pm.response.json().data.token;",
+									"pm.collectionVariables.set('token', jsonData);"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "https://authintated-products.onrender.com/v1/auth/login",
+							"protocol": "https",
+							"host": [
+								"authintated-products",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"login"
+							]
+						},
+						"description": "login to system",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\",\n  \"tokenSecondsDuration\": 100\n}"
+						}
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"var jsonData = pm.response.json().data.token;",
+									"pm.collectionVariables.set('token', jsonData);"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "who am i",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "https://authintated-products.onrender.com/v1/auth/whoami",
+							"protocol": "https",
+							"host": [
+								"authintated-products",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"whoami"
+							]
+						},
+						"description": "get current logged user"
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "fetch-data",
+			"item": [
+				{
+					"name": "authenticated product",
+					"item": [
+						{
+							"name": "auth-products",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"url": {
+									"raw": "https://authintated-products.onrender.com/v1/auth-products",
+									"protocol": "https",
+									"host": [
+										"authintated-products",
+										"onrender",
+										"com"
+									],
+									"path": [
+										"v1",
+										"auth-products"
+									]
+								}
+							},
+							"response": [],
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test('Status code is 200', function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										]
+									}
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "get public product without jwt",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://authintated-products.onrender.com/v1/public-products",
+							"protocol": "https",
+							"host": [
+								"authintated-products",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"v1",
+								"public-products"
+							]
+						}
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": " "
+		},
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}
+

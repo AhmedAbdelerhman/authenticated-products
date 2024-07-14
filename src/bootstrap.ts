@@ -18,8 +18,11 @@ export async function bootstrap() {
     .setVersion('1.0')
     .addBearerAuth() // Enable JWT authentication in Swagger UI
     .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+    const document = SwaggerModule.createDocument(app, config);
+    SwaggerModule.setup('api', app, document);
+    app.enableCors({
+      origin: '*', // You can specify the allowed origins here
+    });
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,

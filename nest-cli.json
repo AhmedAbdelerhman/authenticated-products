@@ -11,6 +11,11 @@
         "watchAssets": true
       },
       {
+        "include": "../files",
+        "outDir": "dist/files",
+        "watchAssets": true
+      },
+      {
         "include": "../public",
         "outDir": "dist/public",
         "watchAssets": true
