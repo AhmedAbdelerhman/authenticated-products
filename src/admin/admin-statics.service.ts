@@ -21,13 +21,23 @@ export class AdminStaticsService {
     ) { }
 
     private counter = 0;
+    private CollectionDownloadsNumber =0;
 
     incrementCounterRequest(): void {
       this.counter++;
     }
+
+    incrementCollectionDownloadsNumber(): void {
+      this.CollectionDownloadsNumber++;
+    }
+  
   
   private  getCounterRequest(): number {
       return this.counter;
+    }
+
+    private  getCollectionDownloadsNumber(): number {
+      return this.CollectionDownloadsNumber;
     }
     async adminStatics(options: PageOptionsDto) {
 
@@ -39,6 +49,7 @@ export class AdminStaticsService {
         const records = await qBuilder.FindAllPaginationUsers({});
         
           records.meta.totalRequest=this.getCounterRequest()
+          records.meta.totalDownlandNumber=this.getCollectionDownloadsNumber()
         return ApiResponseMsg.successResponseWithPagination('succuss', records);
     }
 
