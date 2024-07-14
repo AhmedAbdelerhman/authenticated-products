@@ -1,9 +1,12 @@
 import { PageOptionsDto } from '@app/libs/pagination/pageOption.dto';
-import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Query, Res, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
 import { UsersGuard } from './guards/users.guard';
 import { ProductsService } from './products.service';
+import { Response } from 'express';
+import { join } from 'path';
+
 
 @Controller("v1")
 @ApiTags('get products') // Optional: Add tags for better organization
@@ -37,5 +40,18 @@ export class ProductsController {
     return this.productsService.findAllProducts(pageOptionsDto, "./public-data.json")
   }
 
+
+  @Throttle({ default: { limit:+process.env.publicApiRatLimit ||30, ttl: +process.env.ttlRatLimit ||300 } })
+  @ApiOperation({ summary: 'downland postman collection' })
+  @Get("download")
+  downloadFile(@Res() res: Response) {
+    const filePath = join(__dirname, '..', 'files', "auth-product.postman_collection.json");
+    console.log('@@@@@@@@@@@@@@@{filePath}',filePath);
+    res.sendFile(filePath, (err) => {
+      if (err) {
+        return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send('File not found');
+      }
+    });
+  }
 
 }
