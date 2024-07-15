@@ -1,6 +1,6 @@
 ** Give the project a star if you like it 😊 . **
 
-**A free JWT Auth Service for Frontend Learners** : https://authintated-products.onrender.com/api
+**A free JWT Auth Service for Frontend Learners** : https://authintated-products.onrender.com
 
 ***Are you a frontend developer eager to implement authentication in your projects without delving into backend complexities? Do you want to seamlessly integrate JWT authentication to secure your routes?*** Look!
 
